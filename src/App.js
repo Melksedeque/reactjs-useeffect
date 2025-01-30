@@ -6,8 +6,10 @@ function App() {
   const [racas, setRacas] = useState([]);
   const [busca, setBusca] = useState("");
 
+  const url = "http://localhost:8080/doguinhos";
+
   useEffect(() => {
-    fetch("http://localhost:8080/doguinhos")
+    fetch(url)
       .then((res) => res.json())
       .then((dados) => {
         setRacas(dados);
@@ -16,7 +18,7 @@ function App() {
 
   useEffect(() => {
     if (busca && busca.length > 3) {
-      fetch(`http://localhost:8080/doguinhos?nome=${busca}`)
+      fetch(url + `?nome=${busca}`)
         .then((res) => res.json())
         .then((dados) => {
           setRacas(dados);
