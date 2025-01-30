@@ -8,21 +8,23 @@ function App() {
 
   const url = "http://localhost:8080/doguinhos";
 
-  useEffect(() => {
-    fetch(url)
+  function fetchUrl(busca) {
+    const fetchPromise = !busca ? fetch(url) : fetch(url + `?nome=${busca}`);
+
+    fetchPromise
       .then((res) => res.json())
       .then((dados) => {
         setRacas(dados);
       });
+  }
+
+  useEffect(() => {
+    fetchUrl();
   }, []);
 
   useEffect(() => {
     if (busca && busca.length > 3) {
-      fetch(url + `?nome=${busca}`)
-        .then((res) => res.json())
-        .then((dados) => {
-          setRacas(dados);
-        });
+      fetchUrl(busca);
     }
   }, [busca]);
 
